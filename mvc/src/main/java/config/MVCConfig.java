@@ -27,7 +27,7 @@ import org.springframework.web.servlet.view.JstlView;
  * @author Vivek Yadav
  */
 @EnableWebMvc				/* Alternative for the -> <mvc:annotation-driven/> */
-@ComponentScan("app")	/* Alternative for the -> <context:component-scan base-package="com.pnb" /> */
+@ComponentScan("app")		/* Alternative for the -> <context:component-scan base-package="com.pnb" /> */
 public class MVCConfig extends WebMvcConfigurerAdapter {
 
 	/**
@@ -43,11 +43,13 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;		
 	}
 
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		super.configureDefaultServletHandling(configurer);
 		configurer.enable();
 	}
+
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

@@ -5,3 +5,24 @@
 .pull-left {
 	float: left;
 }
+.red {
+	color: red;
+}
+.padd-10 {
+	padding: 10px;
+}
+.marg-10 {
+	margin: 10px;
+}
+.padd-l-10 {
+	padding-left: 10px;
+}
+.padd-r-10 {
+	padding-right: 10px;
+}
+.marg-l-10 {
+	margin-left: 10px;
+}
+.marg-r-10 {
+	margin-right: 10px;
+}

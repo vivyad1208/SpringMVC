@@ -7,9 +7,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -5855080760603065213L;
 
 	private int userId;
-
 	private String userName;
-	private String password;
+	private transient String password;
 
 	public int getUserId() {
 		return userId;
