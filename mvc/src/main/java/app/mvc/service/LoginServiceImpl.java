@@ -1,5 +1,6 @@
 package app.mvc.service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.view.RedirectView;
 
 import app.mvc.model.User;
+import app.mvc.repository.LoginDao;
+import app.mvc.repository.LoginRepository;
 import app.service.RedirectService;
 
 @Service
@@ -16,11 +19,25 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private RedirectService redirectService;
 
+	@Autowired
+	private LoginDao loginDao;
+
+	/*@Resource
+	private LoginRepository loginRepository;*/
+
 	private User user = null;
 
 	@Override
 	public boolean authenticate(User user) {
-		return "jb@jb.com".equalsIgnoreCase(user.getUserName()) && "jb".equals(user.getPassword());
+		if(user==null)
+			return false;
+		String username = user.getUserName();
+		String password = user.getPassword();
+		user.deletePassword();
+		app.mvc.dto.User userEntity = loginDao.getUser(username);
+		if(userEntity==null)
+			return false;
+		return userEntity.getUsername().equalsIgnoreCase(username) && userEntity.getUserpwd().equals(password);
 	}
 
 	@Override

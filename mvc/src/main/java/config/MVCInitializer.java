@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -20,15 +21,18 @@ public class MVCInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 
 		// Load Spring web application configuration
-		AnnotationConfigWebApplicationContext webCtx = new AnnotationConfigWebApplicationContext();
-		webCtx.register(MVCConfig.class);
-		webCtx.setServletContext(servletContext);
-		webCtx.refresh();
+		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+		rootContext.register(MVCConfig.class);
+		rootContext.setServletContext(servletContext);
+		rootContext.refresh();
 
 		// Create and register the DispatcherServlet
-		DispatcherServlet dispatcherServlet = new DispatcherServlet(webCtx);
+		DispatcherServlet dispatcherServlet = new DispatcherServlet(rootContext);
+	
 		ServletRegistration.Dynamic dynamicServlet = servletContext.addServlet("dispatcher", dispatcherServlet);
 		dynamicServlet.setLoadOnStartup(1);
 		dynamicServlet.addMapping("/web/*");
+
+		servletContext.addListener(new ContextLoaderListener(rootContext));
 	}
 }
