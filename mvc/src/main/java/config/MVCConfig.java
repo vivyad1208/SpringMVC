@@ -144,3 +144,16 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		return properties;
 	}
 }
+
+
+
+/*
+hibernate.hbm2ddl.auto
+Automatically validates or exports schema DDL to the database when the SessionFactory is created.
+With create-drop, the database schema will be dropped when the SessionFactory is closed explicitly.
+
+validate: validate the schema, makes no changes to the database.
+update: update the schema.
+create: creates the schema, destroying previous data.
+create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
+*/
